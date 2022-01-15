@@ -1,0 +1,35 @@
+@import "/node_modules/normalize.css/normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,400;0,600;0,800;1,400;1,600;1,800&display=swap");
+@import "./mixins.scss";
+
+$font-base: 16px;
+$mobile: 768px;
+$grid-columns: 12;
+$desktop-max-size: 1600px;
+$gutter: 3.75rem;
+// colors
+:root {
+  --color-primary: #c00;
+}
+
+html,
+body {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 16px;
+  @include mobile {
+    font-size: 13px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+a {
+  color: var(--color-primary);
+  text-decoration: none !important;
+}
+
+b,
+strong {
+  font-weight: 600 !important;
+}
