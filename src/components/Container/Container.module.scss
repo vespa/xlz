@@ -1,0 +1,14 @@
+@import "../../styles/main.scss";
+
+.container {
+  width: 100%;
+  &__content {
+    max-width: $desktop-max-size;
+    width: 100%;
+    margin: auto;
+    padding: $gutter;
+    @include mobile {
+      padding: $gutter 2.5rem;
+    }
+  }
+}

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Outlet } from "react-router-dom";
-
+import { Container } from 'components'
 export const Layout = () => {
     return (
-        <div>
-            ee
+        <Container>
+            x
             <Outlet />
-        </div>
+        </Container>
     )
 }
 
