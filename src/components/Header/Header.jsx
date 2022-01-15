@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import styles from './Header.module.scss'
-
+import { Container, Row, Col } from 'components';
+import logo from 'static/logo.svg'
 /**
  * Container wraps and centralize element
  */
@@ -12,8 +13,18 @@ export const Header = ({
     ...rest
 }) => {
     return (
-        <header className={`${styles.container}`} >
-            <div className={`${className}`} {...rest} > {children} </div>
+        <header className={`${styles.header}`} >
+            <Container>
+                <Row>
+                    <Col size={2}>
+                        <img src={`${logo}#logo-usage`} alt="logo" style={{ width: '100%', height: '2rem' }} />
+                    </Col>
+                    <Col>
+                        searchBox
+                    </Col>
+                </Row>
+            </Container>
+
         </header>
     )
 }

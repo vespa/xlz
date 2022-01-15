@@ -6,7 +6,7 @@
     max-width: $desktop-max-size;
     width: 100%;
     margin: auto;
-    padding: $gutter;
+    padding: 2rem 0;
     @include mobile {
       padding: $gutter 2.5rem;
     }
