@@ -1,26 +1,26 @@
-import view from "./view";
+import Row from "./Row";
 import { render } from "@testing-library/react";
 
 test("render view without args", () => {
-  let view = render(<view>Test </view>);
+  let view = render(<Row>Test </Row>);
   expect(view).toMatchSnapshot();
 });
 
 test("render view with list arg", () => {
-  let view = render(<view list>Test </view>);
+  let view = render(<Row list>Test </Row>);
   expect(view).toMatchSnapshot();
 });
 
 test("render view with subItem arg", () => {
-  let view = render(<view subItem>Test </view>);
+  let view = render(<Row subItem>Test </Row>);
   expect(view).toMatchSnapshot();
 });
 
 test("render view with subItem and title args", () => {
   let view = render(
-    <view subItem title>
+    <Row subItem title>
       Test{" "}
-    </view>
+    </Row>
   );
   expect(view).toMatchSnapshot();
 });
