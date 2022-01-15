@@ -1,5 +1,5 @@
-import { Routes, Route, Outlet } from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "containers/Layout";
 export const AppRoutes = () => (
   <>
     <Routes>
@@ -7,12 +7,3 @@ export const AppRoutes = () => (
     </Routes>
   </>
 );
-
-const Layout = () => {
-  return (
-    <div>
-      this is only a test
-      <Outlet />
-    </div>
-  );
-};
