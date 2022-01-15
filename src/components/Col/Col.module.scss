@@ -1,0 +1,43 @@
+@use "sass:math";
+@import "../../styles/maind.scss";
+
+.col {
+  flex: 1;
+  min-width: 0;
+  @include mobile {
+    flex-basis: 100%;
+  }
+}
+.col__sm_auto {
+  @include mobile {
+    flex: 1 !important;
+  }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  padding-right: 1rem;
+}
+
+@for $i from 1 through $grid-columns {
+  .col_ {
+    &#{$i} {
+      height: inherit;
+      flex-basis: percentage(math.div($i, $grid-columns));
+      @include mobile {
+        flex-basis: 100%;
+      }
+    }
+    &_sm_#{$i} {
+      @media only screen and (max-width: $mobile) {
+        height: inherit;
+        flex-basis: percentage(math.div($i, $grid-columns)) !important;
+      }
+    }
+  }
+}
+.right {
+  text-align: right;
+}
