@@ -10,8 +10,23 @@ $desktop-max-size: 80.5rem;
 $gutter: 3rem;
 
 // colors
+
+$white: #fff;
+$darkgrey: #333;
+$grey50: mix($white, $darkgrey, 50%);
+$grey70: mix($white, $darkgrey, 70%);
+$grey90: mix($white, $darkgrey, 90%);
+$grey95: mix($white, $darkgrey, 95%);
+
 :root {
   --color-primary: #e20015;
+  --darkgrey: #{$darkgrey};
+  --grey-50: #{$grey50};
+  --grey-70: #{$grey70};
+  --grey-90: #{$grey90};
+  --grey-95: #{$grey95};
+  --color-mediumred: #c7000a;
+  --color-darkred: #97000a;
 }
 
 html,
@@ -25,6 +40,7 @@ body {
 
 * {
   box-sizing: border-box;
+  // outline: 0;
 }
 a {
   color: var(--color-primary);

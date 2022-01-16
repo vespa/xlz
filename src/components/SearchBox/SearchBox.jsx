@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types";
 import styles from "./SearchBox.module.scss"
-import { Row, Col } from 'components'
+import { Row, Col, Button } from 'components'
 /**
  * Search Box 
  */
@@ -9,16 +9,22 @@ import { Row, Col } from 'components'
 export const SearchBox = () => {
 
     return (
-        <Row
-
-        >
-            <Col>
-                <input type={'search'} />
-            </Col>
-            <Col>
-                <button></button>
-            </Col>
-        </Row>
+        <form onSubmit={e => e.preventDefault()}>
+            <Row
+                className={styles.search}
+            >
+                <Col>
+                    <input type={'search'} className={styles.search__input} placeholder='Suchbegriff eingeben' />
+                </Col>
+                <Col size={1}>
+                    <Button
+                        className={styles.search__button}
+                        aria-label="suchen"
+                        type={"submit"}
+                    > text </Button>
+                </Col>
+            </Row>
+        </form>
     )
 }
 SearchBox.propTypes = {

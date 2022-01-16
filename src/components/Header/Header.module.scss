@@ -2,4 +2,12 @@
 
 .header {
   box-shadow: 0 0.25rem 0.3125rem -0.125rem rgb(0 0 0 / 8%);
+  &__logo {
+    &_link {
+      display: block;
+      border: 1px solid transparent;
+      padding: 0.5rem 0;
+      max-width: 8.5rem;
+    }
+  }
 }

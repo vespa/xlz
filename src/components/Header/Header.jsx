@@ -15,7 +15,9 @@ export const Header = ({
             <Container>
                 <Row>
                     <Col size={2}>
-                        <img src={`${logo}#logo-usage`} alt="logo" style={{ width: '100%', height: '2rem' }} />
+                        <a href="/" className={`${styles.header__logo_link}`} >
+                            <img src={`${logo}#logo-usage`} alt="logo" style={{ width: '100%', height: '2rem' }} />
+                        </a>
                     </Col>
                     <Col>
                         {searchBox}

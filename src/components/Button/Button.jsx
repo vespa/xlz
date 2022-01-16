@@ -6,22 +6,23 @@ import styles from "./Button.module.scss"
  */
 
 export const Button = ({
-    text,
+    children,
+    className = '',
     ...rest
 }) => {
 
     return (
         <button
-            className={styles.button}
+            className={`${styles.button} ${className}`}
             {...rest}
         >
-
+            {children}
         </button>
     )
 }
 Button.propTypes = {
     /**  text inside button */
-    text: PropTypes.string,
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
 
 }
 
