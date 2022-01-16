@@ -8,9 +8,7 @@ import logo from 'static/logo.svg'
  */
 
 export const Header = ({
-    children,
-    className = '',
-    ...rest
+    searchBox,
 }) => {
     return (
         <header className={`${styles.header}`} >
@@ -20,8 +18,9 @@ export const Header = ({
                         <img src={`${logo}#logo-usage`} alt="logo" style={{ width: '100%', height: '2rem' }} />
                     </Col>
                     <Col>
-                        searchBox
+                        {searchBox}
                     </Col>
+                    <Col size={2} />
                 </Row>
             </Container>
 
@@ -30,10 +29,8 @@ export const Header = ({
 }
 
 Header.propTypes = {
-    /**  custom class */
-    className: PropTypes.string,
     /** expected text/Component */
-    children: PropTypes.node,
+    searchBox: PropTypes.object,
 }
 
 export default Header
