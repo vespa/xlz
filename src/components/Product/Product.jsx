@@ -1,33 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from "prop-types";
-import { Row, Col } from 'components'
+import { Row, Col, Image } from 'components'
 import styles from "./Product.module.scss"
 /**
- * Description 
+ * Product viewer 
  */
 
-export const Image = ({ src, alt }) => {
-    const [currentSource, setCurrentSource] = useState("")
-    // it deals with the random redirecting
-    const loadImage = useCallback(
-        async () => {
-            const source = await fetch(src)
-            setCurrentSource(source.url)
-        }, [src]
-    )
-    useEffect(() => {
-        loadImage()
-    }, [loadImage])
-    return (
-        <>
-            {!!currentSource && <img src={currentSource} alt={alt} />}
-            {/* this line is not working now, it expects to be in a SSR env */}
-            <noscript>
-                {!!currentSource && <img src={currentSource} alt={alt} />}
-            </noscript>
-        </>
-    )
-}
 export const Product = ({
     brand,
     eyecatcher,

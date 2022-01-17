@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { Product, Row, Col } from 'components'
+import { Product, Row } from 'components'
 import { getProductList, SEARCHABLE_TERMS_PARAM } from 'infra/api'
 import { useSearchParams } from 'react-router-dom'
 
