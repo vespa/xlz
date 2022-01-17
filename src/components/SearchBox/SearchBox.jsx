@@ -8,14 +8,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
  */
 
 export const SearchBox = () => {
-    const mainParam = "searchableTerms_like"
+    const searchableTerms = "searchableTerms_like"
     const [searchParams] = useSearchParams()
-    const currentSearch = searchParams.get(mainParam)
+    const currentSearch = searchParams.get(searchableTerms)
     const navigate = useNavigate()
     const [searchTerm, setSearchTerm] = useState("")
     const handleSearch = (e) => {
         e.preventDefault()
-        navigate(`/?${mainParam}=${searchTerm.trim().replace(/\s{1,}/g, " ").split(" ").join("|")}`)
+        navigate(`/?${searchableTerms}=${searchTerm.trim().replace(/\s{1,}/g, " ").split(" ").join("|")}`)
     }
     useEffect(() => {
         !!currentSearch && setSearchTerm(currentSearch.replace(/\|/g, ' '))
