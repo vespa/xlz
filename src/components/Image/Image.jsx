@@ -5,11 +5,9 @@ import styles from "./Image.module.scss"
  * Load lazy Image 
  */
 
-
-
-
 export const Image = ({ src, alt, className = "", ...rest }) => {
     const [currentSource, setCurrentSource] = useState("")
+    const [loaded, setLoaded] = useState(false)
     const imageEl = useRef(null)
     // it deals with the random redirecting provided on the fake api
     const loadImage = useCallback(
@@ -24,18 +22,21 @@ export const Image = ({ src, alt, className = "", ...rest }) => {
     }
 
     const checkVisible = (elm) => {
+        if (!elm) return false
         var { bottom, top } = elm.getBoundingClientRect();
         var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
         return !(bottom < 0 || top - viewHeight >= 0);
     }
 
     const isImageVisible = useCallback(async () => {
+        if (loaded) return false;
         if (checkVisible(imageEl.current)) {
             window.removeEventListener('scroll', isImageVisible, false)
             await loadImage()
+            setLoaded(true)
             preload(imageEl.current.querySelector('img'))
         }
-    }, [loadImage])
+    }, [loadImage, loaded])
 
     const configureLazyLoad = useCallback(() => {
         const elem = imageEl.current
@@ -43,15 +44,13 @@ export const Image = ({ src, alt, className = "", ...rest }) => {
         !checkVisible(imageEl.current) && window.addEventListener("scroll", isImageVisible, false)
     }, [isImageVisible])
 
-
-
-    useEffect(() => {
-        isImageVisible()
-    }, [isImageVisible])
-
     useEffect(() => {
         imageEl.current && configureLazyLoad()
     }, [configureLazyLoad])
+
+    useEffect(() => {
+        imageEl.current && !loaded && isImageVisible()
+    })
 
     return (
         <>
@@ -64,10 +63,6 @@ export const Image = ({ src, alt, className = "", ...rest }) => {
                     />}
             </div>
             }
-            {/* this line is not working now, it expects to be in a SSR env to ensure that the images are indexable */}
-            {/* <noscript>
-                {!!currentSource && <img src={currentSource} alt={alt} />}
-            </noscript> */}
         </>
     )
 }
