@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState, useRef } from 'react'
 import PropTypes from "prop-types";
 import styles from "./Image.module.scss"
 /**
- * Load lazy Image 
+ *  lazy load Image 
  */
 
 export const Image = ({ src, alt, className = "", ...rest }) => {

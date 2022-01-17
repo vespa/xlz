@@ -1,1 +1,18 @@
 // styles
+.product {
+  position: relative;
+  &__eyecatcher {
+    background-color: var(--color-primary);
+    color: #fff;
+    position: absolute;
+    float: right;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 0 0.25rem 0.3125rem -0.125rem rgb(0 0 0 / 20%);
+    z-index: 2;
+  }
+}

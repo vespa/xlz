@@ -14,10 +14,10 @@ export const Product = ({
     price,
     priceSale
 }) => (
-    <Col size={3}>
+    <Col size={3} className={styles.product}>
         {!!eyecatcher &&
             <Row>
-                <Col>
+                <Col className={styles.product__eyecatcher}>
                     {eyecatcher}
                 </Col>
             </Row>
