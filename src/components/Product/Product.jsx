@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from "prop-types";
 import { Row, Col, Image } from 'components'
 import styles from "./Product.module.scss"
@@ -15,42 +15,43 @@ export const Product = ({
     priceSale
 }) => (
     <Col size={3} className={styles.product}>
-        {!!eyecatcher &&
-            <Row>
-                <Col className={styles.product__eyecatcher}>
-                    {eyecatcher}
-                </Col>
-            </Row>
-        }
+        <div className={styles.product__box}>
+            {!!eyecatcher &&
+                <Row>
+                    <Col className={styles.product__box__eyecatcher}>
+                        {eyecatcher}
+                    </Col>
+                </Row>
+            }
 
-        <Row>
-            <Col>
-                <Image src={image} alt={`${brand} ${name}`} />
-            </Col>
-        </Row>
-        <Row>
-            <Col>
-                {brand}
-            </Col>
-        </Row>
-        <Row>
-            <Col>
-                {name}
-            </Col>
-        </Row>
-        <Row>
-            <Col>
-                {price}
-            </Col>
-        </Row>
-        {!!priceSale &&
             <Row>
                 <Col>
-                    {priceSale}
+                    <Image src={image} alt={`${brand} ${name}`} />
                 </Col>
             </Row>
-        }
-
+            <Row>
+                <Col className={styles.product__box__brand}>
+                    {brand}
+                </Col>
+            </Row>
+            <Row>
+                <Col className={styles.product__box__name}>
+                    {name}
+                </Col>
+            </Row>
+            <Row className={!priceSale ? styles.product__box__price : styles.product__box__striked_price}>
+                <Col>
+                    € {price},-
+                </Col>
+            </Row>
+            {!!priceSale &&
+                <Row className={`${styles.product__box__price} ${styles["product__box__price--sale"]}`}>
+                    <Col>
+                        € {priceSale},-
+                    </Col>
+                </Row>
+            }
+        </div>
     </Col>
 );
 Product.propTypes = {

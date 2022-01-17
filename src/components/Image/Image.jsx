@@ -9,6 +9,7 @@ export const Image = ({ src, alt, className = "", ...rest }) => {
     const [currentSource, setCurrentSource] = useState("")
     const [loaded, setLoaded] = useState(false)
     const imageEl = useRef(null)
+
     // it deals with the random redirecting provided on the fake api
     const loadImage = useCallback(
         async () => {
