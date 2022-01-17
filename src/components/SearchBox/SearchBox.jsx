@@ -30,16 +30,16 @@ export const SearchBox = () => {
                     <input
                         type={'search'}
                         value={searchTerm}
-                        className={styles.search__input} placeholder='Suchbegriff eingeben'
+                        className={styles.search__input} placeholder='Enter a search term'
                         onChange={e => setSearchTerm(e.target.value)}
                     />
                 </Col>
                 <Col size={1} smallSize={4}>
                     <Button
                         className={styles.search__button}
-                        aria-label="suchen"
+                        aria-label="search"
                         type={"submit"}
-                    > Suchen </Button>
+                    > Search </Button>
                 </Col>
             </Row>
         </form>
