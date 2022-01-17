@@ -1,10 +1,21 @@
 export const API_BASE = "http://localhost:3001";
+
+export const SEARCHABLE_TERMS_PARAM = "searchableTerms_like";
+
+export const http = async (url, method = "GET") => {
+  try {
+    const result = await fetch(url, { method });
+    return result.json();
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 export const getProductList = async ({ searchableTerms }) => {
   try {
-    const result = await fetch(`${API_BASE}/product?${searchableTerms}`);
-    return result;
+    const url = `${API_BASE}/product?${SEARCHABLE_TERMS_PARAM}=${searchableTerms}`;
+    return await http(url);
   } catch (err) {
-    console.error(err);
-    throw new Error("API is not responding");
+    throw new Error(err);
   }
 };
