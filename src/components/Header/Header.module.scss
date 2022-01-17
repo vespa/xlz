@@ -1,13 +1,24 @@
 @import "../../styles/main.scss";
 
 .header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
   box-shadow: 0 0.25rem 0.3125rem -0.125rem rgb(0 0 0 / 8%);
+  background-color: #fff;
   &__logo {
     &_link {
       display: block;
       border: 1px solid transparent;
       padding: 0.5rem 0;
       max-width: 8.5rem;
+    }
+  }
+  &__spacer {
+    padding-top: 8rem;
+    @include mobile {
+      padding-top: 12rem;
     }
   }
 }

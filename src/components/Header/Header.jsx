@@ -11,22 +11,25 @@ export const Header = ({
     searchBox,
 }) => {
     return (
-        <header className={`${styles.header}`} >
-            <Container>
-                <Row>
-                    <Col size={2}>
-                        <a href="/" className={`${styles.header__logo_link}`} >
-                            <img src={`${logo}#logo-usage`} alt="logo" style={{ width: '100%', height: '2rem' }} />
-                        </a>
-                    </Col>
-                    <Col>
-                        {searchBox}
-                    </Col>
-                    <Col size={2} />
-                </Row>
-            </Container>
+        <>
+            <header className={`${styles.header}`} >
+                <Container>
+                    <Row>
+                        <Col size={2}>
+                            <a href="/" className={`${styles.header__logo_link}`} >
+                                <img src={`${logo}#logo-usage`} alt="logo" style={{ width: '100%', height: '2rem' }} />
+                            </a>
+                        </Col>
+                        <Col>
+                            {searchBox}
+                        </Col>
+                        <Col size={2} />
+                    </Row>
+                </Container>
 
-        </header>
+            </header>
+            <div className={`${styles.header__spacer}`} />
+        </>
     )
 }
 
