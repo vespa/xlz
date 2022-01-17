@@ -8,7 +8,7 @@ import withHideActions from '../../_HOCs/withHideActions'
  * Avoid use any element that not is an **Col**
  */
 
-export const RowModel = ({
+const RowModel = ({
     children,
     className = '',
     list = false,

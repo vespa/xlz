@@ -7,7 +7,7 @@ import withHideActions from '../../_HOCs/withHideActions'
  */
 
 
-export const ColModel = (({
+const ColModel = (({
     className,
     children,
     size = '',
