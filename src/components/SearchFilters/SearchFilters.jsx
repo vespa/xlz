@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'components'
+import { Row, Col, SimpleSelector } from 'components'
 // import PropTypes from "prop-types";
 // import styles from "./SearchFilters.module.scss"
 /**
@@ -7,12 +7,23 @@ import { Row, Col } from 'components'
  */
 
 export const SearchFilters = () => {
-
+    const options = [{
+        label: 'None',
+        value: ''
+    }]
     return (
         <Row
 
         >
-            <Col> search filters </Col>
+            <Col>
+                <SimpleSelector
+                    options={options}
+                    onChange={e => {
+                        console.log(e)
+                    }}
+                />
+                <br />
+            </Col>
         </Row>
     )
 }

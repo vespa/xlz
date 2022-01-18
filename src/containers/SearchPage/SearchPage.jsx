@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { Product, Row, Col, Button } from 'components'
+import { SearchFilters, Product, Row, Col, Button } from 'components'
 import { getProductList, SEARCHABLE_TERMS_PARAM } from 'infra/api'
 import { useSearchParams } from 'react-router-dom'
 import styles from './SearchPage.module.scss'
@@ -33,6 +33,7 @@ export const SearchPage = () => {
         <>
             {!error ?
                 <>
+                    <SearchFilters />
                     <Row>
                         {productList
                             .filter((_, i) => i < showResults)
