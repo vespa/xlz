@@ -43,7 +43,9 @@ export const SearchPage = () => {
                     {showResults <= productList.length &&
                         <Row>
                             <Col className={styles.search__container}>
-                                <Button className={styles.search__button} onClick={loadMoreResults}>Show more results</Button>
+                                <Button className={styles.search__button} onClick={loadMoreResults}>
+                                    Showing {showResults} from {productList.length}
+                                </Button>
                             </Col>
                         </Row>
                     }
