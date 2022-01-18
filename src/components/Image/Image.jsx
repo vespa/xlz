@@ -32,9 +32,9 @@ export const Image = ({ src, alt, className = "", ...rest }) => {
     const isImageVisible = useCallback(async () => {
         if (loaded) return false;
         if (checkVisible(imageEl.current)) {
+            setLoaded(true)
             window.removeEventListener('scroll', isImageVisible, false)
             await loadImage()
-            setLoaded(true)
             preload(imageEl.current.querySelector('img'))
         }
     }, [loadImage, loaded])
@@ -56,11 +56,13 @@ export const Image = ({ src, alt, className = "", ...rest }) => {
     return (
         <>
             {<div ref={imageEl} className={`${styles.image}`} >
-                {currentSource &&
+                {currentSource && loaded &&
                     <img
                         data-src={currentSource} alt={alt}
                         {...rest} className={`${styles.image} `}
-                        onLoad={e => e.target.setAttribute('style', 'opacity:1')}
+                        onLoad={e => setTimeout(() => {
+                            e.target.setAttribute('style', 'opacity:1')
+                        }, 100)}
                     />}
             </div>
             }
