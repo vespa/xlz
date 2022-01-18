@@ -18,7 +18,7 @@ export const Product = ({
         <div className={styles.product__box}>
             {!!eyecatcher &&
                 <Row>
-                    <Col className={styles.product__box__eyecatcher}>
+                    <Col className={styles.product__box__eyecatcher} data-testid={'eyecatcher'}>
                         {eyecatcher}
                     </Col>
                 </Row>
@@ -26,28 +26,29 @@ export const Product = ({
 
             <Row>
                 <Col>
-                    <Image src={image} alt={`${brand} ${name}`} />
+
+                    <Image src={image} alt={`${brand} ${name}`} data-testid={'product-image'} />
                 </Col>
             </Row>
             <Row>
                 <Col className={styles.product__box__brand}>
-                    {brand}
+                    <h3>{brand}</h3>
                 </Col>
             </Row>
             <Row>
-                <Col className={styles.product__box__name}>
-                    {name}
+                <Col >
+                    <h2 className={styles.product__box__name} > {name}</h2>
                 </Col>
             </Row>
             <Row className={!priceSale ? styles.product__box__price : styles.product__box__striked_price}>
                 <Col>
-                    € {price},-
+                    € <span>{price}</span>,-
                 </Col>
             </Row>
             {!!priceSale &&
-                <Row className={`${styles.product__box__price} ${styles["product__box__price--sale"]}`}>
+                <Row className={`${styles.product__box__price} ${styles["product__box__price--sale"]}`} data-testid={'price-sale'}>
                     <Col>
-                        € {priceSale},-
+                        € <span>{priceSale}</span>,-
                     </Col>
                 </Row>
             }

@@ -63,12 +63,11 @@ export const Image = ({
 
     return (
         <>
-            {<div ref={imageEl} className={`${styles.image}`} >
+            {<div ref={imageEl} className={`${styles.image}`} {...rest} >
                 {currentSource && loaded &&
                     <img
                         data-src={currentSource}
                         alt={alt}
-                        {...rest}
                         className={`${styles.image} `}
                         onLoad={
                             e => setTimeout(() => {
