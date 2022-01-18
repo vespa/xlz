@@ -34,7 +34,7 @@ export const SearchFilters = () => {
         <Row
 
         >
-            <Col>
+            <Col size={2}>
                 <SimpleSelector
                     value={currentSorPriceValue}
                     options={options}

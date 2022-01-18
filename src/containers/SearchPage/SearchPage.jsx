@@ -37,7 +37,7 @@ export const SearchPage = () => {
         }
         const reordered = !!orderByPrice ? [...productList].sort(reorderType[orderByPrice]) : false
         !!reordered && setProductList(reordered)
-        !reordered && loadProductList()
+        !reordered && !loading && loadProductList()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderByPrice])
 
