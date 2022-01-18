@@ -47,6 +47,6 @@ test("render SearchBox and emulate searching by clicking on button", () => {
   expect(input.value).toBe("Good Day");
   const button = screen.queryByText("Search");
   fireEvent.click(button);
-  expect(mockedSetUserParams.append).toBeCalledTimes(1);
+  expect(mockedSetUserParams.get).toBeCalledTimes(2);
   expect(mockedSetUserParams.append).toBeCalledTimes(1);
 });
