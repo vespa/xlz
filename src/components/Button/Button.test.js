@@ -1,11 +1,10 @@
 import Button from "./Button";
 import { render } from "@testing-library/react";
 
-
-test("render Message with children and duration", () => {
+test("render Button without crashing", () => {
   let view = render(
     <>
-      <Button />
+      <Button>test</Button>
     </>
   );
   expect(view).toMatchSnapshot();
