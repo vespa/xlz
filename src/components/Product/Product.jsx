@@ -12,9 +12,11 @@ export const Product = ({
     image,
     name,
     price,
-    priceSale
+    priceSale,
+    searchableTerms,
+    ...rest
 }) => (
-    <Col size={3} className={styles.product}>
+    <Col size={3} className={styles.product} {...rest}>
         <div className={styles.product__box}>
             {!!eyecatcher &&
                 <Row>

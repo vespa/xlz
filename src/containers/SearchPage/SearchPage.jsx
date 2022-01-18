@@ -21,6 +21,7 @@ export const SearchPage = () => {
             setProductList(products)
         } catch (err) {
             setError('something went wrong. Please try again later')
+            throw Error(err)
         } finally {
             setLoading(false)
         }
@@ -50,16 +51,15 @@ export const SearchPage = () => {
         reorderByPriceParam()
     }, [orderByPrice, reorderByPriceParam])
 
-
     return (
         <>
             {!error ?
                 <>
                     <SearchFilters />
-                    <Row>
+                    <Row data-testid={"product-list"}>
                         {!loading && productList
                             .filter((_, i) => i < showResults)
-                            .map(product => <Product key={product.id} {...product} />)}
+                            .map(product => <Product key={product.id} {...product} data-testid={"product"} />)}
 
                         {(!loading && productList.length === 0) && <Col className={styles.no_matches}> No matches found for <b>{searchableTerms}</b> </Col>}
                     </Row>
