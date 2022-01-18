@@ -1,0 +1,54 @@
+.selector {
+  cursor: pointer;
+  position: relative;
+  line-height: 2rem;
+  text-transform: uppercase;
+
+  &__box {
+    text-align: left;
+    display: table;
+    min-width: 10rem;
+    background-color: #fff;
+    border: 1px solid var(--grey-70);
+    border-radius: 3px;
+    &__content {
+      & > div {
+        &:last-child {
+          padding-top: 1rem;
+          flex: 0 0 1rem;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+  &__value {
+    border: 0;
+    width: 100%;
+    pointer-events: none;
+    line-height: 2rem;
+    text-transform: uppercase;
+    &_placeholder {
+      color: #ccc;
+    }
+  }
+  &__options {
+    top: 2.2rem;
+    min-width: 10rem;
+    position: absolute;
+    border: 1px solid #eee;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    background-color: #fff;
+    border-radius: 4px;
+    text-transform: uppercase;
+    left: 0;
+  }
+  &__cell {
+    transition: all 0.2 ease;
+    padding: 0.5rem 1rem;
+    width: inherit;
+    &:hover {
+      background-color: #eaeeea;
+    }
+  }
+}

@@ -6,3 +6,6 @@ export * from "components/SearchBox";
 export * from "components/Button";
 export * from "components/Product";
 export * from "components/Image";
+export * from "components/SearchFilters";
+export * from "components/SimpleSelector";
+export * from "components/Arrow";

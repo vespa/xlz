@@ -1,0 +1,28 @@
+// styles
+
+.arrows {
+  padding: 13px 0 0 9px !important;
+  &__button {
+    right: 1.5rem;
+    width: 0;
+    height: 0;
+    border: 0;
+    margin-bottom: 3px;
+    &--up {
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid var(--color-primary);
+      &.active {
+        border-bottom: 5px solid var(--grey-50);
+      }
+    }
+    &__active {
+      border-top: 5px solid var(--grey-50);
+    }
+    &--down {
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--color-primary);
+    }
+  }
+}

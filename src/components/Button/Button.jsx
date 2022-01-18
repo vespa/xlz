@@ -22,7 +22,7 @@ export const Button = ({
 }
 Button.propTypes = {
     /**  text inside button */
-    children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
 
 }
 
