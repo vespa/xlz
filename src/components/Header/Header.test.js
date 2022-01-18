@@ -19,5 +19,6 @@ test("check if elements are present", () => {
     </Header>
   );
   expect(screen.getByTestId("box")).toBeInTheDocument();
+  expect(screen.getByAltText("logo")).toBeInTheDocument();
   expect(view).toMatchSnapshot();
 });
