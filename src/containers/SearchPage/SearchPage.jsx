@@ -9,8 +9,8 @@ export const SearchPage = () => {
     const [showResults, setShowResults] = useState(maxPerPage)
     const [error, setError] = useState('')
     const [searchParams] = useSearchParams()
-    const searchableTerms = searchParams.get(SEARCHABLE_TERMS_PARAM) || ""
     const [productList, setProductList] = useState([])
+    const searchableTerms = searchParams.get(SEARCHABLE_TERMS_PARAM) || ""
 
     const loadProductList = useCallback(async () => {
         try {
@@ -21,15 +21,13 @@ export const SearchPage = () => {
         }
     }, [searchableTerms])
 
-    const loadMoreResults = () => {
+    const loadMoreResults = () =>
         setShowResults(showResults + maxPerPage)
-    }
+
     useEffect(() => {
         setShowResults(maxPerPage)
         loadProductList()
     }, [loadProductList, searchableTerms])
-
-
 
     return (
         <>
