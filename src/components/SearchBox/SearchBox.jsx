@@ -12,12 +12,15 @@ import { SEARCHABLE_TERMS_PARAM } from 'infra/api'
 export const SearchBox = () => {
     const [search, setSearchParams] = useSearchParams()
     const currentSearch = search.get(SEARCHABLE_TERMS_PARAM)
-    // const navigate = useNavigate()
     const [searchTerm, setSearchTerm] = useState("")
     const handleSearch = (e) => {
         e.preventDefault()
         currentSearch && search.delete(SEARCHABLE_TERMS_PARAM)
-        !!searchTerm && search.append(SEARCHABLE_TERMS_PARAM, searchTerm)
+        !!searchTerm && search.append(SEARCHABLE_TERMS_PARAM, searchTerm
+            // prevents chars that break the api.
+            .replace(/[()\\[\]\\]/gi, '').trim()
+            // add OR to searchTerm
+            .replace(/\s{1,}/gi, "|"))
         setSearchParams(search)
     }
     useEffect(() => {

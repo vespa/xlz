@@ -17,7 +17,12 @@ export const SimpleSelector = ({ onChange, options, value, placeholder = 'Select
                 className={styles.selector__box}
             >
                 <Row className={styles.selector__box__content}>
-                    <Col placeholder={placeholder} readOnly className={`${styles.selector__value} ${currentValue === placeholder ? styles.selector__value_placeholder : ''}`}>
+                    <Col
+                        placeholder={placeholder}
+                        readOnly
+                        className={`${styles.selector__value} ${currentValue === placeholder ? styles.selector__value_placeholder : ''}`}
+                        smallSize={10}
+                    >
                         {currentValue}
                     </Col>
                     <Col>

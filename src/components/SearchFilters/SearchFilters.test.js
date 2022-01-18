@@ -8,7 +8,7 @@ jest.mock("react-router-dom", () => ({
   useSearchParams: () => [{ get: () => `price_desc` }],
 }));
 
-test("render element without crashing", () => {
+test("render element SearchFilters without crashing", () => {
   let view = render(
     <>
       <SearchFilters />
