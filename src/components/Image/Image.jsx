@@ -1,11 +1,19 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react'
 import PropTypes from "prop-types";
 import styles from "./Image.module.scss"
+
 /**
  *  lazy load Image 
  */
 
-export const Image = ({ src, alt, className = "", ...rest }) => {
+export const Image = ({
+    src,
+    alt,
+    className = "",
+    // dependency injection
+    fetch = global.fetch,
+    ...rest
+}) => {
     const [currentSource, setCurrentSource] = useState("")
     const [loaded, setLoaded] = useState(false)
     const imageEl = useRef(null)
@@ -15,7 +23,7 @@ export const Image = ({ src, alt, className = "", ...rest }) => {
         async () => {
             const source = await fetch(src)
             setCurrentSource(source.url)
-        }, [src]
+        }, [fetch, src]
     )
 
     const preload = (elem) => {
@@ -58,11 +66,14 @@ export const Image = ({ src, alt, className = "", ...rest }) => {
             {<div ref={imageEl} className={`${styles.image}`} >
                 {currentSource && loaded &&
                     <img
-                        data-src={currentSource} alt={alt}
-                        {...rest} className={`${styles.image} `}
-                        onLoad={e => setTimeout(() => {
-                            e.target.setAttribute('style', 'opacity:1')
-                        }, 100)}
+                        data-src={currentSource}
+                        alt={alt}
+                        {...rest}
+                        className={`${styles.image} `}
+                        onLoad={
+                            e => setTimeout(() => {
+                                e.target.setAttribute('style', 'opacity:1')
+                            }, 100)}
                     />}
             </div>
             }

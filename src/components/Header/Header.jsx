@@ -26,7 +26,6 @@ export const Header = ({
                         <Col size={2} />
                     </Row>
                 </Container>
-
             </header>
             <div className={`${styles.header__spacer}`} />
         </>

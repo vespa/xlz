@@ -1,7 +1,23 @@
 import Header from "./Header";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
-test("render row without args", () => {
+test("render Header without args", () => {
   let view = render(<Header>Test </Header>);
+  expect(view).toMatchSnapshot();
+});
+
+test("check if elements are present", () => {
+  let view = render(
+    <Header
+      searchBox={
+        <>
+          <input data-testid={"box"} />
+        </>
+      }
+    >
+      Test
+    </Header>
+  );
+  expect(screen.getByTestId("box")).toBeInTheDocument();
   expect(view).toMatchSnapshot();
 });
