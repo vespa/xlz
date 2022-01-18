@@ -9,7 +9,7 @@ export const SimpleSelector = ({ onChange, options, value, placeholder = 'Select
     useEffect(() => {
         setCurrentValue(value ? options.filter(item => item.value === value)[0].label : placeholder)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [value])
     return (
         <div className={styles.selector}>
             <button
@@ -23,7 +23,6 @@ export const SimpleSelector = ({ onChange, options, value, placeholder = 'Select
                     <Col>
                         <Arrow style={{ float: 'right' }} />
                     </Col>
-                    {/* <FontAwesomeIcon icon={faChevronDown} /> */}
                 </Row>
             </button>
             {isOpen &&
@@ -59,3 +58,5 @@ SimpleSelector.propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string
 }
+
+export default SimpleSelector

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from "prop-types";
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import styles from "./SearchBox.module.scss"
 import { Row, Col, Button } from 'components'
 import { SEARCHABLE_TERMS_PARAM } from 'infra/api'
@@ -10,13 +10,15 @@ import { SEARCHABLE_TERMS_PARAM } from 'infra/api'
  */
 
 export const SearchBox = () => {
-    const [searchParams] = useSearchParams()
-    const currentSearch = searchParams.get(SEARCHABLE_TERMS_PARAM)
-    const navigate = useNavigate()
+    const [search, setSearchParams] = useSearchParams()
+    const currentSearch = search.get(SEARCHABLE_TERMS_PARAM)
+    // const navigate = useNavigate()
     const [searchTerm, setSearchTerm] = useState("")
     const handleSearch = (e) => {
         e.preventDefault()
-        navigate(`/?${SEARCHABLE_TERMS_PARAM}=${searchTerm.trim().replace(/\s{1,}/g, " ").split(" ").join("|")}`)
+        currentSearch && search.delete(SEARCHABLE_TERMS_PARAM)
+        !!searchTerm && search.append(SEARCHABLE_TERMS_PARAM, searchTerm)
+        setSearchParams(search)
     }
     useEffect(() => {
         !!currentSearch && setSearchTerm(currentSearch.replace(/\|/g, ' '))
