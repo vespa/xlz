@@ -6,6 +6,18 @@ To run this project you need `node 14 or superior`
 
 ## How to run this APP
 
+### Install
+
+```
+yarn
+```
+
+or
+
+```
+npm install
+```
+
 ### Local API
 
 ```
