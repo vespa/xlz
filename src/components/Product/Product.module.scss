@@ -1,6 +1,7 @@
 // styles
 .product {
   position: relative;
+  overflow: hidden;
   &__box {
     padding: 0.5rem;
     margin: 0 1rem 1rem 0;
