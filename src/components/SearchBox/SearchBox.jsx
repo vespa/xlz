@@ -27,7 +27,7 @@ export const SearchBox = () => {
         !!currentSearch && setSearchTerm(currentSearch.replace(/\|/g, ' '))
     }, [currentSearch])
     return (
-        <form onSubmit={handleSearch}>
+        <form onSubmit={handleSearch} data-testid="search-box">
             <Row
                 className={styles.search}
             >

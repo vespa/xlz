@@ -1,7 +1,8 @@
 import React from 'react'
-import { Outlet } from "react-router-dom";
+import { Outlet as RDOutlet } from "react-router-dom";
 import { Container, Header, SearchBox } from 'components'
-export const Layout = () => {
+
+export const Layout = ({ Outlet = RDOutlet }) => {
     return (
         <>
             <Header
