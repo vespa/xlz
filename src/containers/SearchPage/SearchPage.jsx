@@ -21,7 +21,7 @@ export const SearchPage = () => {
             setProductList(products)
         } catch (err) {
             setError('something went wrong. Please try again later')
-            throw Error(err)
+            console.error(err.message)
         } finally {
             setLoading(false)
         }

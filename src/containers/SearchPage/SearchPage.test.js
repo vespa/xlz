@@ -2,6 +2,11 @@
 import { Layout } from "containers/Layout";
 import SearchPage from "./SearchPage";
 import { render, screen, fireEvent } from "@testing-library/react";
+import * as api from "infra/api";
+
+jest.mock("infra/api.js", () => ({
+  getProductList: jest.fn(),
+}));
 
 const mockedSetUserParams = {
   append: jest.fn(),
@@ -15,56 +20,41 @@ jest.mock("react-router-dom", () => ({
   useSearchParams: () => [mockedSetUserParams, () => {}],
 }));
 
-jest.mock("infra/api.js", () => ({
-  getProductList: () =>
-    Promise.resolve([
-      {
-        brand: "Smith-Bins",
-        eyecatcher: "sale",
-        id: 1,
-        image: "https://loremflickr.com/320/320/furniture,chair/all",
-        name: "Transcof",
-        price: 655,
-        priceSale: 100,
-        url: "https://soup.io/augue/quam.json",
-        searchableTerms: "Transcof Smith-Bins",
-      },
-      {
-        brand: "Strosin Inc",
-        eyecatcher: null,
-        id: 2,
-        image: "https://loremflickr.com/320/320/furniture,chair/all",
-        name: "Konklux",
-        price: 200,
-        priceSale: null,
-        url: "https://eepurl.com/quam/pharetra.jsp",
-        searchableTerms: "Konklux Strosin Inc",
-      },
-      {
-        brand: "Stark Inc",
-        eyecatcher: "sale",
-        id: 3,
-        image: "https://loremflickr.com/320/320/furniture,chair/all",
-        name: "Vagram",
-        price: 566,
-        priceSale: 300,
-        url: "http://amazonaws.com/in/imperdiet/et.jsp",
-        searchableTerms: "Vagram Stark Inc",
-      },
-    ]),
-}));
-
-test("render SearchPage without crashing", async () => {
-  let view = render(
-    <>
-      <Layout Outlet={SearchPage} />
-    </>
-  );
-  await screen.findByTestId("product-list");
-  const products = screen.queryAllByTestId("product");
-  expect(products.length).toBe(3);
-  expect(view).toMatchSnapshot();
-});
+const mockResults = [
+  {
+    brand: "Smith-Bins",
+    eyecatcher: "sale",
+    id: 1,
+    image: "https://loremflickr.com/320/320/furniture,chair/all",
+    name: "Transcof",
+    price: 655,
+    priceSale: 100,
+    url: "https://soup.io/augue/quam.json",
+    searchableTerms: "Transcof Smith-Bins",
+  },
+  {
+    brand: "Strosin Inc",
+    eyecatcher: null,
+    id: 2,
+    image: "https://loremflickr.com/320/320/furniture,chair/all",
+    name: "Konklux",
+    price: 200,
+    priceSale: null,
+    url: "https://eepurl.com/quam/pharetra.jsp",
+    searchableTerms: "Konklux Strosin Inc",
+  },
+  {
+    brand: "Stark Inc",
+    eyecatcher: "sale",
+    id: 3,
+    image: "https://loremflickr.com/320/320/furniture,chair/all",
+    name: "Vagram",
+    price: 566,
+    priceSale: 300,
+    url: "http://amazonaws.com/in/imperdiet/et.jsp",
+    searchableTerms: "Vagram Stark Inc",
+  },
+];
 
 const options = [
   {
@@ -81,7 +71,8 @@ const options = [
   },
 ];
 
-test("should perform a search", async () => {
+test("render SearchPage without crashing", async () => {
+  api.getProductList.mockImplementation(() => Promise.resolve(mockResults));
   let view = render(
     <>
       <Layout Outlet={SearchPage} />
@@ -90,7 +81,19 @@ test("should perform a search", async () => {
   await screen.findByTestId("product-list");
   const products = screen.queryAllByTestId("product");
   expect(products.length).toBe(3);
+  expect(view).toMatchSnapshot();
+});
 
+test("should perform a search", async () => {
+  api.getProductList.mockImplementation(() => Promise.resolve(mockResults));
+  let view = render(
+    <>
+      <Layout Outlet={SearchPage} />
+    </>
+  );
+  await screen.findByTestId("product-list");
+  const products = screen.queryAllByTestId("product");
+  expect(products.length).toBe(3);
   const select = screen.queryByPlaceholderText("Select...");
 
   expect(screen.queryByText(options[0].label)).not.toBeInTheDocument();
@@ -113,4 +116,20 @@ test("should perform a search", async () => {
   fireEvent.submit(input);
 
   expect(view).toMatchSnapshot();
+});
+
+test("call should faiil", async () => {
+  api.getProductList.mockImplementation(
+    async () => await Promise.reject("ERROR")
+  );
+  global.console.error = jest.fn();
+
+  render(
+    <>
+      <Layout Outlet={SearchPage} />
+    </>
+  );
+  await screen.findByTestId("product-list");
+  expect(global.console.error).toBeCalledTimes(1);
+  global.console.error.mockRestore();
 });
