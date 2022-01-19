@@ -65,15 +65,21 @@ export const Image = ({
         <>
             {<div ref={imageEl} className={`${styles.image}`} {...rest} >
                 {currentSource && loaded &&
-                    <img
-                        data-src={currentSource}
-                        alt={alt}
-                        className={`${styles.image} `}
-                        onLoad={
-                            e => setTimeout(() => {
-                                e.target.setAttribute('style', 'opacity:1')
-                            }, 100)}
-                    />}
+                    <>
+                        <img
+                            itemProp="image"
+                            data-src={currentSource}
+                            alt={alt}
+                            className={`${styles.image} `}
+                            onLoad={
+                                e => setTimeout(() => {
+                                    e.target.setAttribute('style', 'opacity:1')
+                                }, 100)}
+                        />
+                        {/* this assure that crawlers will be able to find the image */}
+                        <a className={`${styles.hidden_link} `} href={currentSource}>{currentSource}</a>
+                    </>
+                }
             </div>
             }
         </>

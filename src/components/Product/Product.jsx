@@ -16,7 +16,7 @@ export const Product = ({
     searchableTerms,
     ...rest
 }) => (
-    <Col size={3} className={styles.product} {...rest}>
+    <Col size={3} className={styles.product} {...rest} itemScope itemType="https://schema.org/Product">
         <div className={styles.product__box}>
             {!!eyecatcher &&
                 <Row>
@@ -28,29 +28,37 @@ export const Product = ({
 
             <Row>
                 <Col>
-
                     <Image src={image} alt={`${brand} ${name}`} data-testid={'product-image'} />
                 </Col>
             </Row>
             <Row>
                 <Col className={styles.product__box__brand}>
-                    <h3>{brand}</h3>
+                    <h3 itemProp="brand">{brand}</h3>
                 </Col>
             </Row>
             <Row>
-                <Col >
+                <Col itemProp="name">
                     <h2 className={styles.product__box__name} > {name}</h2>
                 </Col>
             </Row>
             <Row className={!priceSale ? styles.product__box__price : styles.product__box__striked_price}>
-                <Col>
-                    € <span>{price}</span>,-
-                </Col>
+                {priceSale ?
+                    <Col >
+                        € <span>{price}</span>,-
+                    </Col> :
+                    <Col itemProp="priceCurrency" content="EUR">
+                        € <span
+                            itemProp="price" content={price}
+                        >{price}</span>,-
+                    </Col>
+                }
             </Row>
             {!!priceSale &&
                 <Row className={`${styles.product__box__price} ${styles["product__box__price--sale"]}`} data-testid={'price-sale'}>
-                    <Col>
-                        € <span>{priceSale}</span>,-
+                    <Col itemProp="priceCurrency" content="EUR">
+                        € <span
+                            itemProp="price" content={priceSale}
+                        >{priceSale}</span>,-
                     </Col>
                 </Row>
             }
