@@ -4,7 +4,7 @@ import styles from './Header.module.scss'
 import { Container, Row, Col } from 'components';
 import logo from 'static/logo.svg'
 /**
- * Container wraps and centralize element
+ * Main app header
  */
 
 export const Header = ({

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col, SimpleSelector } from 'components'
+import { Row, Col, Select } from 'components'
 import { useSearchParams } from 'react-router-dom'
 import { SORT_BY_PRICE_PARAM } from 'infra/api'
 
-export const SearchFilters = () => {
 
+/**
+ * Search Filters. It adds/remove search params to the URL
+ */
+
+
+export const SearchFilters = () => {
     const [currentSorPriceValue, setCurrentSorPriceValue] = useState("")
     const [search, setSearchParams] = useSearchParams()
     const currentPriceSort = search.get(SORT_BY_PRICE_PARAM) || ""
@@ -35,7 +40,7 @@ export const SearchFilters = () => {
 
         >
             <Col size={2}>
-                <SimpleSelector
+                <Select
                     value={currentSorPriceValue}
                     options={options}
                     onChange={handleSortByPrice}

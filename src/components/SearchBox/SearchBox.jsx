@@ -6,7 +6,7 @@ import { Row, Col, Button } from 'components'
 import { SEARCHABLE_TERMS_PARAM } from 'infra/api'
 
 /**
- * Search Box 
+ * Search Box. It adds search params to the URL
  */
 
 export const SearchBox = () => {

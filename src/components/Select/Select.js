@@ -1,4 +1,4 @@
-import SimpleSelector from "./SimpleSelector";
+import Select from "./Select";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 const options = [
@@ -16,11 +16,11 @@ const options = [
   },
 ];
 
-test("render element SimpleSelector without crashing", (done) => {
+test("render element Select without crashing", (done) => {
   const mockFunc = jest.fn(() => done());
   let view = render(
     <>
-      <SimpleSelector options={options} onChange={mockFunc} />
+      <Select options={options} onChange={mockFunc} />
     </>
   );
   const select = screen.queryByPlaceholderText("Select...");

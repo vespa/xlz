@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { Arrow, Row, Col } from 'components'
-import styles from './SimpleSelector.module.scss'
+import styles from './Select.module.scss'
 
-export const SimpleSelector = ({ onChange, options, value, placeholder = 'Select...' }) => {
+/**
+ * A simple styled select box
+ */
+
+export const Select = ({ onChange, options, value, placeholder = 'Select...' }) => {
     const [currentValue, setCurrentValue] = useState()
     const [isOpen, setIsOpen] = useState(false)
     useEffect(() => {
@@ -54,7 +58,7 @@ export const SimpleSelector = ({ onChange, options, value, placeholder = 'Select
     )
 }
 
-SimpleSelector.propTypes = {
+Select.propTypes = {
     /** effect onChage */
     onChange: PropTypes.func.isRequired,
     /** options shown at view */
@@ -64,4 +68,4 @@ SimpleSelector.propTypes = {
     placeholder: PropTypes.string
 }
 
-export default SimpleSelector
+export default Select

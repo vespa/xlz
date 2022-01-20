@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from "prop-types";
 import styles from "./Arrow.module.scss"
 /**
- * Description 
+ * Small arrow element 
  */
 
 export const Arrow = ({ onClick = () => { }, type = 'down' }) => (
@@ -17,7 +17,6 @@ export const Arrow = ({ onClick = () => { }, type = 'down' }) => (
     />
 )
 Arrow.propTypes = {
-    /**  Example */
     onClick: PropTypes.func,
     type: PropTypes.oneOf(['down', 'up']),
 
