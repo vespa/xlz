@@ -43,6 +43,9 @@ export const Image = ({
             setLoaded(true)
             window.removeEventListener('scroll', isImageVisible, false)
             await loadImage()
+            setTimeout(() => {
+                imageEl.current.removeAttribute('style')
+            }, 200)
             preload(imageEl.current.querySelector('img'))
         }
     }, [loadImage, loaded])

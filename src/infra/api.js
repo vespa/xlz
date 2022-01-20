@@ -2,6 +2,7 @@ export const API_BASE = "http://localhost:3001";
 
 export const SEARCHABLE_TERMS_PARAM = "searchableTerms_like";
 export const SORT_BY_PRICE_PARAM = "sortyByPrice";
+export const FILTER_BY_DEALS = "filterByDeals";
 
 export const http = async (url, method = "GET") => {
   try {

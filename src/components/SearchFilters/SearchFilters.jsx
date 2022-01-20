@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Select } from 'components'
 import { useSearchParams } from 'react-router-dom'
-import { SORT_BY_PRICE_PARAM } from 'infra/api'
+import { SORT_BY_PRICE_PARAM, FILTER_BY_DEALS } from 'infra/api'
 
 
 /**
@@ -11,12 +11,15 @@ import { SORT_BY_PRICE_PARAM } from 'infra/api'
 
 export const SearchFilters = () => {
     const [currentSorPriceValue, setCurrentSorPriceValue] = useState("")
+    const [currentEyeCatcherValue, setCurrentEyeCatcherValue] = useState("")
     const [search, setSearchParams] = useSearchParams()
     const currentPriceSort = search.get(SORT_BY_PRICE_PARAM) || ""
-    const options = [
+    const currentEyeCatcherOption = search.get(FILTER_BY_DEALS) || ""
+
+    const priceOptions = [
         {
-            label: 'None',
-            value: ''
+            label: "None",
+            value: ""
         },
         {
             label: "Price: Low to high",
@@ -27,27 +30,62 @@ export const SearchFilters = () => {
             value: "price_asc"
         },
     ]
+    const eyeCatcherOptions = [
+        {
+            label: "None",
+            value: ""
+        },
+        {
+            label: "Deals",
+            value: "1"
+        }
+    ]
     const handleSortByPrice = (val) => {
         currentPriceSort && search.delete(SORT_BY_PRICE_PARAM)
         !!val && search.append(SORT_BY_PRICE_PARAM, val)
         setSearchParams(search)
     }
+
+    const handleSortByEyeCatcher = (val) => {
+        currentEyeCatcherOption && search.delete(FILTER_BY_DEALS)
+        !!val && search.append(FILTER_BY_DEALS, val)
+        setSearchParams(search)
+    }
     useEffect(() => {
         setCurrentSorPriceValue(currentPriceSort)
-    }, [currentPriceSort])
+        setCurrentEyeCatcherValue(currentEyeCatcherOption)
+    }, [currentEyeCatcherOption, currentPriceSort])
     return (
-        <Row
+        <>
+            <Row>
+                <Col>
+                    <h3>Filter by</h3>
+                </Col>
+            </Row>
+            <Row
 
-        >
-            <Col size={2}>
-                <Select
-                    value={currentSorPriceValue}
-                    options={options}
-                    onChange={handleSortByPrice}
-                />
-                <br />
-            </Col>
-        </Row>
+            >
+                <Col size={3}>
+                    <Select
+                        placeholder={'price'}
+                        value={currentSorPriceValue}
+                        options={priceOptions}
+                        onChange={handleSortByPrice}
+                    />
+                    <br />
+                </Col>
+                <Col size={3}>
+                    <Select
+                        placeholder={'deals'}
+                        value={currentEyeCatcherValue}
+                        options={eyeCatcherOptions}
+                        onChange={handleSortByEyeCatcher}
+                    />
+                    <br />
+                </Col>
+            </Row>
+
+        </>
     )
 }
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { SearchFilters, Product, Row, Col, Button } from 'components'
-import { getProductList, SEARCHABLE_TERMS_PARAM, SORT_BY_PRICE_PARAM } from 'infra/api'
+import { getProductList, SEARCHABLE_TERMS_PARAM, SORT_BY_PRICE_PARAM, FILTER_BY_DEALS } from 'infra/api'
 import { useSearchParams } from 'react-router-dom'
 import styles from './SearchPage.module.scss'
 
@@ -11,14 +11,17 @@ export const SearchPage = () => {
     const [error, setError] = useState('')
     const [search] = useSearchParams()
     const [productList, setProductList] = useState([])
+    const [fullProductList, setFullProductList] = useState([])
     const searchableTerms = search.get(SEARCHABLE_TERMS_PARAM) || ""
     const orderByPrice = search.get(SORT_BY_PRICE_PARAM)
+    const currentEyeCatcherOption = search.get(FILTER_BY_DEALS) || ""
 
     const loadProductList = useCallback(async () => {
         setLoading(true)
         try {
             const products = await getProductList({ searchableTerms })
             setProductList(products)
+            setFullProductList(products)
         } catch (err) {
             setError('something went wrong. Please try again later')
             console.error(err.message)
@@ -42,6 +45,11 @@ export const SearchPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderByPrice])
 
+    const filterByDeals = useCallback(() => {
+        !loading && setProductList(currentEyeCatcherOption ? productList.filter(item => item.eyecatcher) : fullProductList)
+        !loading && console.log('x')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentEyeCatcherOption, fullProductList])
     useEffect(() => {
         setShowResults(maxPerPage)
         loadProductList()
@@ -50,6 +58,10 @@ export const SearchPage = () => {
     useEffect(() => {
         reorderByPriceParam()
     }, [orderByPrice, reorderByPriceParam])
+
+    useEffect(() => {
+        filterByDeals()
+    }, [filterByDeals, currentEyeCatcherOption])
 
     return (
         <>
