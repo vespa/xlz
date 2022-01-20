@@ -20,7 +20,7 @@ test("render element SearchFilters without crashing", () => {
   expect(view).toMatchSnapshot();
 });
 
-test("render element SearchFilters and check elements", () => {
+test("render element SearchFilters and check price", () => {
   const options = [
     {
       label: "None",
@@ -59,4 +59,33 @@ test("render element SearchFilters and check elements", () => {
   expect(screen.getByText(options[2].label)).toBeInTheDocument();
 
   expect(view).toMatchSnapshot();
+});
+test("check deals filter", () => {
+  render(
+    <>
+      <SearchFilters />
+    </>
+  );
+  const select = screen.queryByPlaceholderText("all products");
+  fireEvent.click(select);
+  fireEvent.click(screen.getByText("Deals"));
+  expect(mockedSetUserParams.append).toBeCalledTimes(1);
+  expect(mockedSetUserParams.get).toBeCalledTimes(3);
+});
+
+test("check name order filter", () => {
+  render(
+    <>
+      <SearchFilters />
+    </>
+  );
+  const select = screen.queryByPlaceholderText("product name");
+  fireEvent.click(select);
+  fireEvent.click(screen.getByText("SORT A-Z"));
+  expect(mockedSetUserParams.append).toBeCalledTimes(1);
+  expect(mockedSetUserParams.get).toBeCalledTimes(3);
+  fireEvent.click(select);
+  fireEvent.click(screen.getByText("SORT Z-A"));
+  expect(mockedSetUserParams.append).toBeCalledTimes(2);
+  expect(mockedSetUserParams.get).toBeCalledTimes(3);
 });

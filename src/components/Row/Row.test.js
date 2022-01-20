@@ -11,6 +11,11 @@ test("render view with list arg", () => {
   expect(view).toMatchSnapshot();
 });
 
+test("render view with className", () => {
+  let view = render(<Row className={"test"}>Test </Row>);
+  expect(view).toMatchSnapshot();
+});
+
 test("render view with subItem arg", () => {
   let view = render(<Row subItem>Test </Row>);
   expect(view).toMatchSnapshot();

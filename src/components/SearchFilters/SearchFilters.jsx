@@ -101,7 +101,7 @@ export const SearchFilters = () => {
                 </Col>
                 <Col size={3}>
                     <Select
-                        placeholder={'All products'}
+                        placeholder={'all products'}
                         value={currentEyeCatcherValue}
                         options={eyeCatcherOptions}
                         onChange={handleSortByEyeCatcher}
@@ -110,7 +110,7 @@ export const SearchFilters = () => {
                 </Col>
                 <Col size={3}>
                     <Select
-                        placeholder={'Product name'}
+                        placeholder={'product name'}
                         value={currentProductSort}
                         options={nameOptions}
                         onChange={handleSortProductName}

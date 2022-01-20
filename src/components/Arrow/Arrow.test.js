@@ -1,5 +1,5 @@
 import Arrow from "./Arrow";
-import { render } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 
 test("render Arrow without crashing", () => {
   let view = render(
@@ -7,14 +7,23 @@ test("render Arrow without crashing", () => {
       <Arrow />
     </>
   );
+  render(
+    <>
+      <Arrow type={"down"} />
+    </>
+  );
   expect(view).toMatchSnapshot();
 });
 
 test("render Arrow with param without crashing", () => {
+  const mock = jest.fn();
   let view = render(
     <>
-      <Arrow type={"up"} />
+      <Arrow type={"up"} onClick={mock} />
     </>
   );
+  const arrow = screen.getByTestId("arrow");
+  fireEvent.click(arrow);
+  expect(mock).toBeCalledTimes(1);
   expect(view).toMatchSnapshot();
 });

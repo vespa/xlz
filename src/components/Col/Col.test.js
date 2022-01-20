@@ -7,12 +7,20 @@ test("render col without args", () => {
 });
 
 test("render col with size", () => {
-  let view = render(<Col size={2}>Test </Col>);
+  let view = render(
+    <Col size={2} right>
+      Test{" "}
+    </Col>
+  );
   expect(view).toMatchSnapshot();
 });
 
 test("render col with smallSize", () => {
-  let view = render(<Col smallSize={2}>Test </Col>);
+  let view = render(
+    <Col smallSize={2} ellipsis>
+      Test{" "}
+    </Col>
+  );
   expect(view).toMatchSnapshot();
 });
 
