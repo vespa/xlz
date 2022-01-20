@@ -15,17 +15,19 @@ export const SearchBox = () => {
     const [searchTerm, setSearchTerm] = useState("")
     const handleSearch = (e) => {
         e.preventDefault()
-        currentSearch && search.delete(SEARCHABLE_TERMS_PARAM)
-        !!searchTerm && search.append(SEARCHABLE_TERMS_PARAM, searchTerm
-            // prevents chars that break the api.
-            .replace(/[()\\[\]\\]/gi, '').trim()
-            // add OR to searchTerm
-            .replace(/\s{1,}/gi, "|"))
-        setSearchParams(search)
+        setSearchParams({
+            [SEARCHABLE_TERMS_PARAM]:
+                searchTerm
+                    // prevents chars that break the api.
+                    .replace(/[()\\[\]\\]/gi, '').trim()
+                    // add OR to searchTerm
+                    .replace(/\s{1,}/gi, "|")
+        })
     }
     useEffect(() => {
         !!currentSearch && setSearchTerm(currentSearch.replace(/\|/g, ' '))
     }, [currentSearch])
+
     return (
         <form onSubmit={handleSearch} data-testid="search-box">
             <Row

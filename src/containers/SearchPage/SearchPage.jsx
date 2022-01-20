@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SearchFilters, Product, Row, Col, Button } from 'components'
 import { getProductList, SEARCHABLE_TERMS_PARAM, SORT_BY_PRICE_PARAM, FILTER_BY_DEALS, SORT_BY_PRODUCT_NAME } from 'infra/api'
 import { useSearchParams } from 'react-router-dom'
@@ -13,47 +13,25 @@ export const SearchPage = () => {
     const [productList, setProductList] = useState([])
     const [fullProductList, setFullProductList] = useState([])
     const searchableTerms = search.get(SEARCHABLE_TERMS_PARAM) || ""
-    const orderByPrice = search.get(SORT_BY_PRICE_PARAM)
+    const orderByPrice = search.get(SORT_BY_PRICE_PARAM) || ""
     const currentEyeCatcherOption = search.get(FILTER_BY_DEALS) || ""
     const currentProductSort = search.get(SORT_BY_PRODUCT_NAME) || ""
 
-    const loadProductList = useCallback(async () => {
-        setLoading(true)
-        try {
-            const products = await getProductList({ searchableTerms })
-            setProductList(products)
-            setFullProductList(products)
-        } catch (err) {
-            setError('something went wrong. Please try again later')
-            console.error(err.message)
-        } finally {
-            setLoading(false)
-        }
-    }, [searchableTerms])
-
     const loadMoreResults = () => setShowResults(showResults + maxPerPage)
 
-    const reorderByPriceParam = useCallback(() => {
+    const filterByPrice = (items) => {
         const isPriceSalePresent = (item) => item.priceSale || item.price
         const comparePrices = (a, b) => isPriceSalePresent(a) - isPriceSalePresent(b)
         const reorderType = {
             price_asc: (a, b) => comparePrices(b, a),
             price_desc: (a, b) => comparePrices(a, b)
         }
-        const reordered = !!orderByPrice ? [...productList].sort(reorderType[orderByPrice]) : false
-        !!reordered && setProductList(reordered)
-        !reordered && !loading && setProductList((currentProductSort || currentEyeCatcherOption) ? productList : fullProductList)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orderByPrice])
+        return !!orderByPrice ? [...items].sort(reorderType[orderByPrice]) : items
+    }
 
+    const filterByDeals = (items) => !!currentEyeCatcherOption ? items.filter(item => item.eyecatcher) : items
 
-
-    const filterByDeals = useCallback(() => {
-        !loading && setProductList(currentEyeCatcherOption ? productList.filter(item => item.eyecatcher) : fullProductList)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentEyeCatcherOption, fullProductList])
-
-    const sortyByName = useCallback(() => {
+    const filterByName = (items) => {
         const compareNames = (a, b) => {
             const nameA = a.name.toLowerCase()
             const nameB = b.name.toLowerCase()
@@ -63,31 +41,37 @@ export const SearchPage = () => {
             asc: (a, b) => compareNames(b, a),
             desc: (a, b) => compareNames(a, b)
         }
-        const reordered = !!currentProductSort ? [...productList].sort(reorderType[currentProductSort]) : false
-        !!reordered && setProductList(reordered)
-        !reordered && !loading && setProductList(currentEyeCatcherOption ? productList : fullProductList)
+        return !!currentProductSort ? [...items].sort(reorderType[currentProductSort]) : items
+    }
+
+    const loadProductList = async () => {
+        setLoading(true)
+        try {
+            const products = await getProductList({ searchableTerms })
+            setProductList(filterByPrice(filterByName(filterByDeals(products))))
+            setFullProductList(products)
+        } catch (err) {
+            setError('something went wrong. Please try again later')
+            console.error(err.message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const applyFilters = () => {
+        !loading && setProductList(filterByPrice(filterByName(filterByDeals(fullProductList))))
+    }
+
+    useEffect(() => {
+        applyFilters()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentProductSort, fullProductList])
-
-
+    }, [orderByPrice, currentEyeCatcherOption, currentEyeCatcherOption, currentProductSort])
 
     useEffect(() => {
         setShowResults(maxPerPage)
         loadProductList()
-    }, [loadProductList, searchableTerms])
-
-    useEffect(() => {
-        reorderByPriceParam()
-    }, [orderByPrice, currentEyeCatcherOption, reorderByPriceParam])
-
-    useEffect(() => {
-        filterByDeals()
-    }, [currentEyeCatcherOption, filterByDeals])
-
-    useEffect(() => {
-        sortyByName()
-    }, [currentProductSort, sortyByName])
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchableTerms])
     return (
         <>
             {!error ?

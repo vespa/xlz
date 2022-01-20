@@ -19,6 +19,10 @@ export const SearchFilters = () => {
 
     const priceOptions = [
         {
+            label: "None",
+            value: ""
+        },
+        {
             label: "Price: Low to high",
             value: "price_desc"
         },
@@ -28,6 +32,10 @@ export const SearchFilters = () => {
         },
     ]
     const nameOptions = [
+        {
+            label: "None",
+            value: ""
+        },
         {
             label: "SORT A-Z",
             value: "desc"

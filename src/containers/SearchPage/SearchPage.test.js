@@ -94,7 +94,7 @@ test("should perform a search", async () => {
   await screen.findByTestId("product-list");
   const products = screen.queryAllByTestId("product");
   expect(products.length).toBe(3);
-  const select = screen.queryByPlaceholderText("Select...");
+  const select = screen.queryByPlaceholderText("price");
 
   expect(screen.queryByText(options[0].label)).not.toBeInTheDocument();
   expect(screen.queryByText(options[1].label)).not.toBeInTheDocument();
@@ -107,7 +107,7 @@ test("should perform a search", async () => {
 
   fireEvent.click(screen.getByText(options[1].label));
   expect(mockedSetUserParams.append).toBeCalledTimes(1);
-  expect(mockedSetUserParams.get).toBeCalledTimes(10);
+  expect(mockedSetUserParams.get).toBeCalledTimes(29);
 
   const input = screen.queryByPlaceholderText("Enter a search term");
   expect(input.value).toBe("");

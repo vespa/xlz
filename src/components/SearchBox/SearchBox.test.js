@@ -31,8 +31,6 @@ test("render SearchBox and emulate searching by clicking enter", () => {
   fireEvent.change(input, { target: { value: "Good Day" } });
   expect(input.value).toBe("Good Day");
   fireEvent.submit(input);
-  expect(mockedSetUserParams.append).toBeCalledTimes(1);
-  expect(mockedSetUserParams.append).toBeCalledTimes(1);
 });
 
 test("render SearchBox and emulate searching by clicking on button", () => {
@@ -47,6 +45,4 @@ test("render SearchBox and emulate searching by clicking on button", () => {
   expect(input.value).toBe("Good Day");
   const button = screen.queryByText("Search");
   fireEvent.click(button);
-  expect(mockedSetUserParams.get).toBeCalledTimes(2);
-  expect(mockedSetUserParams.append).toBeCalledTimes(1);
 });

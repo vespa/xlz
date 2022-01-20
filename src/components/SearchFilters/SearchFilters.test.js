@@ -40,7 +40,7 @@ test("render element SearchFilters and check elements", () => {
       <SearchFilters />
     </>
   );
-  const select = screen.queryByPlaceholderText("Select...");
+  const select = screen.queryByPlaceholderText("price");
 
   expect(screen.queryByText(options[0].label)).not.toBeInTheDocument();
   expect(screen.queryByText(options[1].label)).not.toBeInTheDocument();
@@ -53,7 +53,7 @@ test("render element SearchFilters and check elements", () => {
 
   fireEvent.click(screen.getByText(options[2].label));
   expect(mockedSetUserParams.append).toBeCalledTimes(1);
-  expect(mockedSetUserParams.get).toBeCalledTimes(1);
+  expect(mockedSetUserParams.get).toBeCalledTimes(3);
   expect(screen.queryByText(options[0].label)).not.toBeInTheDocument();
   expect(screen.queryByText(options[1].label)).not.toBeInTheDocument();
   expect(screen.getByText(options[2].label)).toBeInTheDocument();
