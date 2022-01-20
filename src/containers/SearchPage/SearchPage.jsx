@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { SearchFilters, Product, Row, Col, Button } from 'components'
-import { getProductList, SEARCHABLE_TERMS_PARAM, SORT_BY_PRICE_PARAM, FILTER_BY_DEALS } from 'infra/api'
+import { getProductList, SEARCHABLE_TERMS_PARAM, SORT_BY_PRICE_PARAM, FILTER_BY_DEALS, SORT_BY_PRODUCT_NAME } from 'infra/api'
 import { useSearchParams } from 'react-router-dom'
 import styles from './SearchPage.module.scss'
 
@@ -15,6 +15,7 @@ export const SearchPage = () => {
     const searchableTerms = search.get(SEARCHABLE_TERMS_PARAM) || ""
     const orderByPrice = search.get(SORT_BY_PRICE_PARAM)
     const currentEyeCatcherOption = search.get(FILTER_BY_DEALS) || ""
+    const currentProductSort = search.get(SORT_BY_PRODUCT_NAME) || ""
 
     const loadProductList = useCallback(async () => {
         setLoading(true)
@@ -41,15 +42,35 @@ export const SearchPage = () => {
         }
         const reordered = !!orderByPrice ? [...productList].sort(reorderType[orderByPrice]) : false
         !!reordered && setProductList(reordered)
-        !reordered && !loading && loadProductList()
+        !reordered && !loading && setProductList((currentProductSort || currentEyeCatcherOption) ? productList : fullProductList)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderByPrice])
 
+
+
     const filterByDeals = useCallback(() => {
         !loading && setProductList(currentEyeCatcherOption ? productList.filter(item => item.eyecatcher) : fullProductList)
-        !loading && console.log('x')
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentEyeCatcherOption, fullProductList])
+
+    const sortyByName = useCallback(() => {
+        const compareNames = (a, b) => {
+            const nameA = a.name.toLowerCase()
+            const nameB = b.name.toLowerCase()
+            return nameA < nameB ? -1 : nameA > nameB ? 1 : 0
+        }
+        const reorderType = {
+            asc: (a, b) => compareNames(b, a),
+            desc: (a, b) => compareNames(a, b)
+        }
+        const reordered = !!currentProductSort ? [...productList].sort(reorderType[currentProductSort]) : false
+        !!reordered && setProductList(reordered)
+        !reordered && !loading && setProductList(currentEyeCatcherOption ? productList : fullProductList)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentProductSort, fullProductList])
+
+
+
     useEffect(() => {
         setShowResults(maxPerPage)
         loadProductList()
@@ -57,11 +78,15 @@ export const SearchPage = () => {
 
     useEffect(() => {
         reorderByPriceParam()
-    }, [orderByPrice, reorderByPriceParam])
+    }, [orderByPrice, currentEyeCatcherOption, reorderByPriceParam])
 
     useEffect(() => {
         filterByDeals()
-    }, [filterByDeals, currentEyeCatcherOption])
+    }, [currentEyeCatcherOption, filterByDeals])
+
+    useEffect(() => {
+        sortyByName()
+    }, [currentProductSort, sortyByName])
 
     return (
         <>

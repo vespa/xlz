@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Select } from 'components'
 import { useSearchParams } from 'react-router-dom'
-import { SORT_BY_PRICE_PARAM, FILTER_BY_DEALS } from 'infra/api'
+import { SORT_BY_PRICE_PARAM, FILTER_BY_DEALS, SORT_BY_PRODUCT_NAME } from 'infra/api'
 
 
 /**
@@ -15,12 +15,9 @@ export const SearchFilters = () => {
     const [search, setSearchParams] = useSearchParams()
     const currentPriceSort = search.get(SORT_BY_PRICE_PARAM) || ""
     const currentEyeCatcherOption = search.get(FILTER_BY_DEALS) || ""
+    const currentProductSort = search.get(SORT_BY_PRODUCT_NAME) || ""
 
     const priceOptions = [
-        {
-            label: "None",
-            value: ""
-        },
         {
             label: "Price: Low to high",
             value: "price_desc"
@@ -28,6 +25,16 @@ export const SearchFilters = () => {
         {
             label: "Price: High to low",
             value: "price_asc"
+        },
+    ]
+    const nameOptions = [
+        {
+            label: "SORT A-Z",
+            value: "desc"
+        },
+        {
+            label: "SORT Z-A",
+            value: "asc"
         },
     ]
     const eyeCatcherOptions = [
@@ -40,7 +47,9 @@ export const SearchFilters = () => {
             value: "1"
         }
     ]
+
     const handleSortByPrice = (val) => {
+        currentProductSort && search.delete(SORT_BY_PRODUCT_NAME)
         currentPriceSort && search.delete(SORT_BY_PRICE_PARAM)
         !!val && search.append(SORT_BY_PRICE_PARAM, val)
         setSearchParams(search)
@@ -51,10 +60,18 @@ export const SearchFilters = () => {
         !!val && search.append(FILTER_BY_DEALS, val)
         setSearchParams(search)
     }
+    const handleSortProductName = (val) => {
+        currentProductSort && search.delete(SORT_BY_PRODUCT_NAME)
+        currentPriceSort && search.delete(SORT_BY_PRICE_PARAM)
+        !!val && search.append(SORT_BY_PRODUCT_NAME, val)
+        setSearchParams(search)
+    }
+
     useEffect(() => {
         setCurrentSorPriceValue(currentPriceSort)
         setCurrentEyeCatcherValue(currentEyeCatcherOption)
     }, [currentEyeCatcherOption, currentPriceSort])
+
     return (
         <>
             <Row>
@@ -76,10 +93,19 @@ export const SearchFilters = () => {
                 </Col>
                 <Col size={3}>
                     <Select
-                        placeholder={'deals'}
+                        placeholder={'All products'}
                         value={currentEyeCatcherValue}
                         options={eyeCatcherOptions}
                         onChange={handleSortByEyeCatcher}
+                    />
+                    <br />
+                </Col>
+                <Col size={3}>
+                    <Select
+                        placeholder={'Product name'}
+                        value={currentProductSort}
+                        options={nameOptions}
+                        onChange={handleSortProductName}
                     />
                     <br />
                 </Col>
