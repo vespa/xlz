@@ -64,7 +64,3 @@ npm run test
 - React router 6
 - Jest / React test library for unit testing
 - json-server to emulate API
-
-Since this is a Search Page (and also literally one page) states related with the product list are concentrate on the URL. It is expected that the user could want to share the results so there is no better place to concentrate it. For a precise control of this URL states I am using the Hook system that we have inside of the latest React Router release.
-
-The components in this application are all developed by me (some of them I already use at other projects). I avoided to use libraries as Bootstrap, material UI or any other just because for the main structure I only needed very few elements.
